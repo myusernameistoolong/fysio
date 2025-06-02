@@ -1,0 +1,86 @@
+﻿@model Patient
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+<div>
+    <h4>Patient</h4>
+    <hr />
+    <img src="~/img/profile/@Model.Photo"
+         class="rounded img-thumbnail"
+         height="180" width="180"
+         asp-append-version="true" />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name) @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-10">
+            <a href="mailto:@Model.Email">@Model.Email</a>
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Bday)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Bday)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Sex)
+        </dt>
+        <dd class="col-sm-10">
+            @if (@Model.Sex == Sex.Male.ToString())
+            {<i class="fas fa-mars" style="color: dodgerblue;"></i> }
+            else
+            { <i class="fas fa-venus" style="color: hotpink;"></i>}
+        </dd>
+        @if (Model.StudentNr != null)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.StudentNr)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.StudentNr)
+            </dd>
+        }
+        else if (Model.BigNr != null)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.BigNr)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.BigNr)
+            </dd>
+        }
+        @if (@Model.Dossiers.Count >= 1)
+        {
+            <dt class="col-sm-2">
+                Linked dossier
+            </dt>
+            <dd class="col-sm-10">
+                <a href="/dossier/details/@Model.Dossiers.First().Id">Dossier</a>
+            </dd>
+        }
+    </dl>
+</div>
+<div>
+    @if (@Model.Dossiers.Count <= 0)
+    {
+        <a class="btn btn-dark-red" asp-controller="dossier" asp-action="Create" role="button"><i class="fas fa-plus"></i> Create Dossier</a>
+
+    }
+    <a class="btn btn-primary" href="/patient/edit/@Model.Id" role="button"><i class="fas fa-edit"></i> Edit</a>
+    <a class="btn btn-secondary" asp-action="Index" role="button"><i class="fas fa-undo"></i> Return</a>
+</div>

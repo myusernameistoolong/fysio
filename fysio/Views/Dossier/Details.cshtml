@@ -1,0 +1,146 @@
+﻿@model Dossier
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+<div>
+    <h4>Dossier</h4>
+    <hr />
+    <img src="~/img/profile/@Model.Patient.Photo"
+         class="rounded img-thumbnail"
+         height="180" width="180"
+         asp-append-version="true" />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Patient name
+        </dt>
+        <dd class="col-sm-10">
+            <a href="/patient/details/@Model.Patient.Id">@Html.DisplayFor(model => model.Patient.Name) @Html.DisplayFor(model => model.Patient.LastName)</a>
+        </dd>
+        <dt class="col-sm-2">
+            Email
+        </dt>
+        <dd class="col-sm-10">
+            <a href="mailto:@Model.Patient.Email">@Model.Patient.Email</a>
+        </dd>
+        <dt class="col-sm-2">
+            Age
+        </dt>
+        <dd class="col-sm-10">
+            @ViewBag.Age
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DiagnosisCode)
+        </dt>
+        <dd class="col-sm-10">
+            @ViewBag.Diagnosis.Code
+        </dd>
+        <dt class="col-sm-2">
+            Diagnosis description
+        </dt>
+        <dd class="col-sm-10">
+            @ViewBag.Diagnosis.Pathology
+        </dd>
+        <dt class="col-sm-2">
+            Physiotherapist name
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Physiotherapist.Name) @Html.DisplayFor(model => model.Physiotherapist.LastName)
+        </dd>
+        <dt class="col-sm-2">
+            Intake performed by
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PhysiotherapistIntakeDoneBy.Name) @Html.DisplayFor(model => model.PhysiotherapistIntakeDoneBy.LastName)
+        </dd>
+        <dt class="col-sm-2">
+            Intake under Supervisioned by
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PhysiotherapistIntakeUnderSuperVisionBy.Name) @Html.DisplayFor(model => model.PhysiotherapistIntakeUnderSuperVisionBy.LastName)
+        </dd>
+        <dt class="col-sm-2">
+            Head practitioner
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PhysiotherapistHeadPractitioner.Name) @Html.DisplayFor(model => model.PhysiotherapistHeadPractitioner.LastName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DateOfRegistration)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DateOfRegistration)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DateOfEndProcedure)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DateOfEndProcedure)
+        </dd>
+        <dt class="col-sm-2">
+            Length for each appointment
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LengthOfTreatments)
+        </dd>
+        <dt class="col-sm-2">
+            Total amount of appointments per week
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AmountOfTreatments)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Desc)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Desc)
+        </dd>
+    </dl>
+    <h4>Notes:</h4>
+    <table class="table table-bordered table-striped table-sm">
+        <thead>
+            <tr>
+                <th>Content</th>
+                <th>Visible for patient</th>
+                <th>Date</th>
+                <th>CreatedBy</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var note in ViewBag.Notes)
+            {
+                <tr>
+                    <td>@note.Content</td>
+                    <td>@if (note.VisibleForPatient) { <span>Yes</span> } else { <span>No</span> }</td>
+                    <td>@note.Date.ToShortDateString()</td>
+                    <td>@note.Physiotherapist.Name @note.Physiotherapist.LastName</td>
+                    <td>
+                        @if (User.IsInRole("FysioTherapist"))
+                        {
+                            <form asp-action="DeleteNote" method="post">
+                                <input type="hidden" name="id" value="@note.Id" />
+                                <input type="hidden" name="dossierId" value="@Model.Id" />
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to remove this note?')"><i class="fas fa-trash-alt"></i> Delete</button>
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div>
+    @if (User.IsInRole("FysioTherapist"))
+    {
+        <a class="btn btn-primary" href="/dossier/edit/@Model.Id" role="button"><i class="fas fa-edit"></i> Edit</a>
+        <a class="btn btn-dark-red" href="/dossier/addnote/@Model.Id" role="button"><i class="fas fa-sticky-note"></i> Assign note</a>
+    }
+    else
+    {
+        <a class="btn btn-primary" href="/patient/editemail" role="button"><i class="fas fa-envelope-open-text"></i> Edit email address</a>
+    }
+    <a class="btn btn-secondary" asp-action="Index" role="button"><i class="fas fa-undo"></i> Return</a>
+</div>

@@ -1,0 +1,34 @@
+﻿@model NewNoteViewModel
+
+@{
+    ViewData["Title"] = "Add Note";
+}
+
+<h1>Add Note</h1>
+<h4>Dossier</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddNote" method="post">
+            <span class="font-weight-light font-italic">* is required.</span>
+            <input type="hidden" asp-for="Id" value="@ViewBag.DossierId" class="form-control" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Content" class="control-label">Message: *</label>
+                <input asp-for="Content" class="form-control" autofocus />
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VisibleForPatient" class="control-label">Visible for Patient: *</label>
+                <input asp-for="VisibleForPatient" class="form-control" />
+                <span asp-validation-for="VisibleForPatient" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-dark-red"><i class="fas fa-save"></i> Save</button>
+            <a class="btn btn-secondary" href="javascript:history.go(-1)" role="button"><i class="fas fa-undo"></i> Return</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

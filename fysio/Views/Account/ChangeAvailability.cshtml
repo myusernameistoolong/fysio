@@ -1,0 +1,33 @@
+﻿@model EditAvailabilityViewModel
+
+@{
+    ViewData["Title"] = "Availability";
+}
+
+<h1>Change availability</h1>
+<h4>Account</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="ChangeAvailability" method="post">
+            <span class="font-weight-light font-italic">* is required.</span>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="StartTime">Start time: *</label>
+                <input type="time" asp-for="StartTime" value="@ViewBag.Physiotherapist.StartTime.ToString("HH:mm")" class="form-control" />
+                <span asp-validation-for="StartTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndTime">End time: *</label>
+                <input type="time" asp-for="EndTime" value="@ViewBag.Physiotherapist.EndTime.ToString("HH:mm")" class="form-control" />
+                <span asp-validation-for="EndTime" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-dark-red"><i class="fas fa-save"></i> Save</button>
+            <a class="btn btn-secondary" href="javascript:history.go(-1)" role="button"><i class="fas fa-undo"></i> Return</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

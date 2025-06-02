@@ -1,0 +1,83 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p class="lead">This is the official management website of physiokliniek Zevenbergen.</p>
+    <p>Navigate through the website via the navigation bar or use the buttons below:</p>
+    <div class="row">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="col-sm-4 pb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Appointments</h5>
+                        <p class="card-text">View the full list of your appointments including all details.</p>
+                        <a asp-controller="treatment" asp-action="Appointments" class="btn btn-dark-red"><i class="far fa-calendar-check"></i> Appointments</a>
+                    </div>
+                </div>
+            </div>
+            @if (User.IsInRole("FysioTherapist"))
+            {
+                <div class="col-sm-4 pb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Dossiers</h5>
+                            <p class="card-text">View the full list of all dossiers including all details.</p>
+                            <a asp-controller="dossier" asp-action="Index" class="btn btn-dark-red"><i class="fas fa-archive mr-1"></i> Dossiers</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 pb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Treatments</h5>
+                            <p class="card-text">View the full list of all treatments including all details.</p>
+                            <a asp-controller="treatment" asp-action="Index" class="btn btn-dark-red"><i class="fas fa-syringe"></i> Treatments</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 pb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Patients</h5>
+                            <p class="card-text">View the full list of all registered patients including all details.</p>
+                            <a asp-controller="patient" asp-action="Index" class="btn btn-dark-red"><i class="fas fa-user-injured mr-1"></i> Patients</a>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="col-sm-4 pb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Logout</h5>
+                        <p class="card-text">Logout from your account.</p>
+                        <a asp-controller="Account" asp-action="Logout" class="btn btn-dark-red"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="col-sm-4 pb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Login</h5>
+                        <p class="card-text">Login or register an account.</p>
+                        <a asp-controller="Account" asp-action="Login" class="btn btn-dark-red"><i class="fas fa-sign-in-alt"></i> Login</a>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="col-sm-4 pb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Privacy</h5>
+                    <p class="card-text">Read the privacy policy here.</p>
+                    <a asp-controller="home" asp-action="Privacy" class="btn btn-dark-red"><i class="fas fa-user-secret"></i> Privacy</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

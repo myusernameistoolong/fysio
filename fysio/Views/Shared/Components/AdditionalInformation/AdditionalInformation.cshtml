@@ -1,0 +1,4 @@
+﻿<div class="rounded mx-3 px-3 opacity-50" style="background: darkgrey;">
+    <p class="text-white font-weight-bold mb-0">Amount of appointments today: @ViewBag.AmountOfTreatments</p>
+    <p class="text-white font-weight-bold mb-0">Your general availability: @ViewBag.StartTime.ToShortTimeString() until @ViewBag.EndTime.ToShortTimeString() <a class="btn btn-primary m-1 p-1" asp-area="" asp-controller="account" asp-action="ChangeAvailability" role="button"><i class="fas fa-clock"></i> Change</a></p>
+</div>

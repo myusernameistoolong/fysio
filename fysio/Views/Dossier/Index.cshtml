@@ -1,0 +1,54 @@
+﻿@model List<Dossier>
+@{
+    ViewData["Title"] = "Dossiers";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Responses</title>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
+</head>
+<body>
+    <div class="text-center p-2">
+        <h2>Dossiers:</h2>
+        <table class="table table-bordered table-striped table-sm">
+            <thead>
+                <tr>
+                    <th>Patient</th>
+                    <th>Physiotherapist</th>
+                    <th>Head practitioner</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var dossier in @Model)
+                {
+                <tr>
+                    <td>
+                        <a href="../patient/details/@dossier.Patient.Id">
+                            <img src="~/img/profile/@dossier.Patient.Photo"
+                                 class="rounded-circle"
+                                 height="40" width="40"
+                                 asp-append-version="true" />
+                        </a>
+                        <a href="../dossier/details/@dossier.Id">@dossier.Patient.Name @dossier.Patient.LastName</a>
+                    </td>
+                    <td>@dossier.Physiotherapist.Name @dossier.Physiotherapist.LastName</td>
+                    <td>@dossier.PhysiotherapistHeadPractitioner.Name @dossier.PhysiotherapistHeadPractitioner.LastName</td>
+                    <td>@dossier.DateOfRegistration.ToShortDateString() @if (@dossier.DateOfEndProcedure != null) {  <span>until @dossier.DateOfEndProcedure</span> }</td>
+                    <td>
+                        <form asp-action="Delete" asp-route-id="@dossier.Id" method="post">
+                            <a class="btn btn-primary" href="dossier/edit/@dossier.Id" role="button"><i class="fas fa-edit"></i> Edit</a>
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to remove dossier of patient: @dossier.Patient.Name @dossier.Patient.LastName?')"><i class="fas fa-trash-alt"></i> Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <a class="btn btn-dark-red mb-5" asp-action="Create" role="button"><i class="fas fa-plus"></i> Create</a>
+</body>
+</html>

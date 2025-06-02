@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - fysio</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-xl navbar-toggleable-xl btn-red navbar-light border-bottom box-shadow mb-3">
+            <div class="container">
+                <a asp-controller="Home" asp-action="Index"><img src="/img/logo.png" alt="logo" height="50px" width="auto" class="logo" /></a>
+                <a class="navbar-brand text-light font-weight-bold logo-text nowrap" asp-area="" asp-controller="Home" asp-action="Index">Fysiokliniek Zevenbergen</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-xl-inline-flex flex-xl-row-reverse">
+                    <ul class="navbar-nav d-flex d-inline-flex">
+                        <li class="nav-item d-inline-flex align-items-center">
+                            <a class="nav-link text-light font-weight-bold align-items-center d-inline-flex" asp-area="" asp-controller="home" asp-action="Index"><i class="fas fa-home mr-1"></i>Home</a>
+                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item d-inline-flex align-items-center">
+                                <a class="nav-link text-light font-weight-bold align-items-center d-inline-flex" asp-area="" asp-controller="treatment" asp-action="Appointments"><i class="far fa-calendar-check mr-1"></i> Your Appointments</a>
+                            </li>
+                        }
+                        @if (User.IsInRole("FysioTherapist"))
+                        {
+                            <li class="nav-item d-inline-flex align-items-center">
+                                <a class="nav-link text-light font-weight-bold align-items-center d-inline-flex" asp-area="" asp-controller="dossier" asp-action="Index"><i class="fas fa-archive mr-1"></i> Dossiers</a>
+                            </li>
+                            <li class="nav-item d-inline-flex align-items-center">
+                                <a class="nav-link text-light font-weight-bold align-items-center d-inline-flex" asp-area="" asp-controller="treatment" asp-action="Index"><i class="fas fa-syringe mr-1"></i> Appointments</a>
+                            </li>
+                            <li class="nav-item d-inline-flex align-items-center">
+                                <a class="nav-link text-light font-weight-bold align-items-center d-inline-flex" asp-area="" asp-controller="patient" asp-action="Index"><i class="fas fa-user-injured mr-1"></i> Patients</a>
+                            </li>
+                        }
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item d-inline-flex align-items-center">
+                                <a class="nav-link text-light font-weight-bold align-items-center d-inline-flex" asp-area="" asp-controller="account" asp-action="Logout"><i class="fas fa-sign-out-alt mr-1"></i> Logout</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item d-inline-flex align-items-center">
+                                <a class="nav-link text-light font-weight-bold align-items-center d-inline-flex" asp-area="" asp-controller="account" asp-action="Login"><i class="fas fa-sign-in-alt mr-1"></i> Login</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @if (User.IsInRole("FysioTherapist"))
+            {
+                @(await Component.InvokeAsync("AdditionalInformation"))
+            }
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2021 - fysio - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://kit.fontawesome.com/d4de6019bc.js" crossorigin="anonymous"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

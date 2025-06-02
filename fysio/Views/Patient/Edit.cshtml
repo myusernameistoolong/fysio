@@ -1,0 +1,74 @@
+﻿@model EditPatientViewModel
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>Edit</h1>
+    <h4>Patient</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit" method="post" enctype="multipart/form-data">
+                <span class="font-weight-light font-italic">* is required.</span>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" value="@ViewBag.Patient.Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+                <div class="form-group">
+                    <label asp-for="Name">Name: *</label>
+                    <input asp-for="Name" value="@ViewBag.Patient.Name" class="form-control" autofocus />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LastName">Last name: *</label>
+                    <input asp-for="LastName" value="@ViewBag.Patient.LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Bday">Birthday: *</label>
+                    <input type="date" asp-for="Bday" value="@ViewBag.Patient.Bday.ToString("yyyy-MM-dd")" class="form-control" />
+                    <span asp-validation-for="Bday" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Phone">Phone: *</label>
+                    <input asp-for="Phone" value="@ViewBag.Patient.Phone" class="form-control" />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Photo" class="control-label">Photo: *</label>
+                    <div class="custom-file">
+                        <input asp-for="Photo" value="@ViewBag.Patient.Photo" class="custom-file-input" id="customFile">
+                        <label class="custom-file-label" for="customFile">Choose file</label>
+                    </div>
+                    <span asp-validation-for="Photo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Sex" class="control-label">Sex: *</label>
+                    <select asp-for="Sex" asp-items="@ViewBag.Sexes" class="form-control"></select>
+                    <span asp-validation-for="Sex" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="StudentNr">Student number: *</label>
+                    <input asp-for="StudentNr" value="@ViewBag.Patient.StudentNr" class="form-control" />
+                    <span asp-validation-for="StudentNr" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="BigNr">Big number: *</label>
+                    <input asp-for="BigNr" value="@ViewBag.Patient.BigNr" class="form-control" />
+                    <span asp-validation-for="BigNr" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-dark-red"><i class="fas fa-save"></i> Save</button>
+                <a class="btn btn-secondary" asp-action="Index" role="button"><i class="fas fa-undo"></i> Return</a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+            $(".custom-file-input").on("change", function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            });
+    </script>
+}

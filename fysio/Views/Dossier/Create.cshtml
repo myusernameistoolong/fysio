@@ -1,0 +1,76 @@
+﻿@model NewDossierViewModel
+@{
+    ViewData["Title"] = "Create";
+}
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>Create</h1>
+    <h4>Dossier</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create" method="post" class="m-2">
+                <span class="font-weight-light font-italic">* is required.</span>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="PatientId" class="control-label">Patient: *</label>
+                    <select asp-for="PatientId" asp-items="@ViewBag.Patients" class="form-control" autofocus></select>
+                    <span asp-validation-for="PatientId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DiagnosisCode" class="control-label">DiagnosisCode: *</label>
+                    <select asp-for="DiagnosisCode" asp-items="@ViewBag.DiagnosisCodes" class="form-control"></select>
+                    <span asp-validation-for="DiagnosisCode" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PhysioTherapistId" class="control-label">PhysioTherapist: *</label>
+                    <select asp-for="PhysioTherapistId" asp-items="@ViewBag.PhysioTherapists" class="form-control"></select>
+                    <span asp-validation-for="PhysioTherapistId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="IntakeDoneBy" class="control-label">Intake done by: *</label>
+                    <select asp-for="IntakeDoneBy" asp-items="@ViewBag.PhysioTherapistsIntake" class="form-control"></select>
+                    <span asp-validation-for="IntakeDoneBy" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="IntakeUnderSuperVisionBy" class="control-label">Intake under supervision by:</label>
+                    <select asp-for="IntakeUnderSuperVisionBy" asp-items="@ViewBag.PhysioTherapistsSupervisor" class="form-control"></select>
+                    <span asp-validation-for="IntakeUnderSuperVisionBy" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="HeadPractitioner" class="control-label">Head practitioner: *</label>
+                    <select asp-for="HeadPractitioner" asp-items="@ViewBag.PhysioTherapistsHead" class="form-control"></select>
+                    <span asp-validation-for="HeadPractitioner" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DateOfRegistration">Date of registration: *</label>
+                    <input type="date" asp-for="DateOfRegistration" class="form-control" />
+                    <span asp-validation-for="DateOfRegistration" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LengthOfTreatments">Length of each appointment: *</label>
+                    <input type="time" asp-for="LengthOfTreatments" class="form-control" />
+                    <span asp-validation-for="LengthOfTreatments" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="AmountOfTreatments">Amount of appointments per week: *</label>
+                    <input asp-for="AmountOfTreatments" class="form-control" />
+                    <span asp-validation-for="AmountOfTreatments" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Desc">General description of patient's complaints: *</label>
+                    <input asp-for="Desc" class="form-control" />
+                    <span asp-validation-for="Desc" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-dark-red"><i class="fas fa-save"></i> Save</button>
+                <a class="btn btn-secondary" asp-action="Index" role="button"><i class="fas fa-undo"></i> Return</a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
