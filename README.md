@@ -4,6 +4,7 @@ This project is a **server-side web application** built in **ASP.NET Core** usin
 The system manages various aspects of a physiotherapy clinic — such as patient registration, appointment scheduling, user roles, and more — implementing complex business logic and requirements.
 
 > **Note:** This web application communicates with a separate AI service ("WebAI") to provide enhanced functionality. The AI service itself is not included in this project.
+
 > This project was developed as part of a school assignment for a **Server Side** course.
 
 ## 🧰 Technologies & Architecture
