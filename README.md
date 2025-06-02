@@ -1,4 +1,4 @@
-# Fysio Clinic System - ASP.NET Core 
+# Fysio Clinic System – Server-Side Web App
 
 This project is a **server-side web application** built in **ASP.NET Core** using **Entity Framework Core** and the **Onion Architecture** pattern.
 The system manages various aspects of a physiotherapy clinic — such as patient registration, appointment scheduling, user roles, and more — implementing complex business logic and requirements.
