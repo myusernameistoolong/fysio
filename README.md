@@ -3,7 +3,7 @@
 This project is a **server-side web application** built in **ASP.NET Core** using **Entity Framework Core** and the **Onion Architecture** pattern.
 The system manages various aspects of a physiotherapy clinic — such as patient registration, appointment scheduling, user roles, and more — implementing complex business logic and requirements.
 
-**Note:** This web application utilizes GraphQL to communicate with a separate AI service ("WebAI") to provide enhanced functionality.
+Data access and communication are handled through a GraphQL API, enabling flexible and efficient querying and mutation of the clinic data.
 
 > This project was developed as part of a school assignment for a **Server Side** course.
 
